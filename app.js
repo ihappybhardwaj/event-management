@@ -64,6 +64,6 @@ app.use("/events", eventRoutes);
 app.use("/events/:id/comments", commentRoutes);
 
 
-app.listen(8000,()=>{
-    console.log('EventHub server has started!');
-});
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("The EventHub Server Has Started!");
+ });
