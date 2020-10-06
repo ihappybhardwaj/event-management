@@ -1,3 +1,3 @@
 # EventHub
 
-### Refactored by happy
+### By happy
