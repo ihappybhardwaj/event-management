@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+
+     <header class="jumbotron">
+         <div class="container">
+             <h1></span> Welcome to your events</h1>
+             <p>View our events from all over users</p>
+             <p>
+                <a class="btn btn-primary btn-lg" href="/events/new">Add New events</a>
+             </p>
+              <p>
+              <form action="/events" method="GET" class="form-inline" id="campground-search">
+                <div class="form-group">
+                  <input type="text" name="search" placeholder="event search..." class="form-control">
+                </div>
+              </form>
+             </p>
+         </div>
+     </header>
+     
+     <div class="row text-center flex-wrap" id="campground-grid">
+        <% events.forEach(function(campground){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                   <img src="<%= campground.image %>">
+                   <div class="caption">
+                       <h4><%= campground.name %></h4>
+                       <h4><%= campground.description %></h4>
+                   </div>
+                   <p>
+                       <a href="/events/<%= campground._id %>" class="btn btn-primary">More Info</a>
+                   </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+    <%- include('../partials/footer') %>

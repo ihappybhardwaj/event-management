@@ -1,0 +1,60 @@
+<%- include ('../partials/header') %>
+<div class="row">
+  <div class="col-md-3">
+    <p class="lead">EventhHub</p>
+    <div class="list-group">
+      <li class="list-group-item active">Info 1</li>
+      <li class="list-group-item">Info 2</li>
+      <li class="list-group-item">Info 3</li>
+    </div>
+    <div id="map"></div>
+  </div>
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <img class="img-responsive" src="<%= eventh.image %>">
+      <div class="caption-full">
+        <h4 class="pull-right">
+          $<%= eventh.cost %>/night
+        </h4>
+        <h4><a><%=eventh.name%></a></h4>
+        <p><%= eventh.description %></p>
+        <p>
+          <em>Submitted by: <%= eventh.author.username %>, <%= moment(eventh.createdAt).fromNow() %></em>
+        </p>
+        <% if(currentUser && eventh.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+        <a class="btn  btn-xs btn-warning" href="/evenths/<%= eventh._id %>/edit">Edit</a>
+        <form action="/evenths/<%= eventh._id %>?_method=DELETE" method="POST" class="delete-form">
+          <button class="btn  btn-xs btn-danger">Delete</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+    <div class="well">
+      <div class="text-right">
+        <a class="btn btn-success" href="/evenths/<%= eventh._id %>/comments/new">Add New Comment</a>
+      </div>
+      <hr>
+      <% eventh.comments.forEach(function(comment){ %>
+      <div class="row">
+        <div class="col-md-12">
+          <strong><%= comment.author.username %></strong>
+          <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+          <div>
+           <%= comment.text %> 
+
+           <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+            <div class="float-right">
+              <!-- <a href="/evenths/<%=eventh._id%>/comments/<%=comment._id%>/edit" class="btn  btn-xs btn-warning">EDIT</a> -->
+              <form class="delete-form" action="/evenths/<%=eventh._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-xs btn-danger">DELETE</button>
+              </form>
+            </div>
+          <% } %>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+</div>
